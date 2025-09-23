@@ -10,7 +10,7 @@ const healthCheck = async (req, res) => {
         res.status(200).json({
             status: 'ok',
             connected: true,
-            database: 'paysafe_malky',
+            database: 'malky_paysafe',
             collection: 'payments',
             collectionExists,
             documentCount

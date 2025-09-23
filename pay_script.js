@@ -1,3 +1,7 @@
+    
+    
+         const BASE_URL ="http://localhost:3008/api";
+        // const BASE_URL ="https://malkey.go.digitable.io:3008/api";
 
         const today = new Date().toISOString().split('T')[0]; 
 
@@ -31,7 +35,7 @@
 
         async function checkHealth() {
             try {
-                const response = await fetch('https://malkey.go.digitable.io:3008/api/transactions');
+                const response = await fetch(`${BASE_URL}/transactions`);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const health = await response.json();
                 console.log('Health check:', health);
@@ -61,7 +65,7 @@
                         params.append(key, value);
                     }
                 }
-                const response = await fetch(`https://malkey.go.digitable.io:3008/api/payments?${params}`);
+               const response = await fetch(`${BASE_URL}/payments?${params}`);
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const {
                     transactions,
@@ -203,7 +207,7 @@ function updateTable(transactions, total) {
                         params.append(key, currentFilters[key]);
                     }
                 });
-                const response = await fetch(`https://malkey.go.digitable.io:3008/api/payments/export?${params}`);
+               const response = await fetch(`${BASE_URL}/payments/export?${params}`); 
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const transactions = await response.json();
 

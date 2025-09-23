@@ -11,9 +11,9 @@ async function connectToMongo() {
     try {
         await client.connect();
         console.log(`Connected to MongoDB (${isLive ? 'LIVE' : 'DEV'})`);
-        paymentCollection = client.db('mulky').collection('pyment');
-        const collections = await client.db('mulky').listCollections().toArray();
-        console.log('Collections in mulky database:', collections.map(c => c.name));
+        paymentCollection = client.db('malkey_paysafe').collection('payments');
+        const collections = await client.db('malkey_paysafe').listCollections().toArray();
+        console.log('Collections in malkey_paysafe database:', collections.map(c => c.name));
     } catch (error) {
         console.error('Error connecting to MongoDB:', error);
         process.exit(1);

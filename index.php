@@ -1,17 +1,22 @@
 
 <?php
-// Simple username and password
 $USERNAME = "malkey";
 $PASSWORD = "mal@1234";
 
+// Check if user sent authentication headers
 if (!isset($_SERVER['PHP_AUTH_USER']) || 
     $_SERVER['PHP_AUTH_USER'] !== $USERNAME || 
     $_SERVER['PHP_AUTH_PW'] !== $PASSWORD) {
     
-    // Ask browser for login
-
+    header('WWW-Authenticate: Basic realm="Restricted Area"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Authentication required';
     exit;
 }
+
+// If authentication passes, show content
+echo "Authentication successful! Welcome, $USERNAME.";
+
 
 ?>
 <!DOCTYPE html>
