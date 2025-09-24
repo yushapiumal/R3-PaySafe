@@ -1,6 +1,4 @@
-    
-    
-         const BASE_URL ="http://localhost:3008/api";
+const BASE_URL = "http://localhost:3008/api";
         // const BASE_URL ="https://malkey.go.digitable.io:3008/api";
 
         const today = new Date().toISOString().split('T')[0]; 
@@ -33,26 +31,30 @@
             document.getElementById('exportData').addEventListener('click', exportToCSV);
         }
 
-        async function checkHealth() {
-            try {
-                const response = await fetch(`${BASE_URL}/transactions`);
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const health = await response.json();
-                console.log('Health check:', health);
-                if (!health.collectionExists || health.documentCount === 0) {
-                    document.getElementById('transactionTable').innerHTML = `
-                        <tr><td colspan="10" class="px-5 py-4 text-center text-red-500">
-                            ${health.collectionExists ? 'No transactions found in database' : 'Collection "pyment" does not exist'}
-                        </td></tr>
-                    `;
-                }
-            } catch (error) {
-                console.error('Health check failed:', error);
-                document.getElementById('transactionTable').innerHTML = `
-                    <tr><td colspan="10" class="px-5 py-4 text-center text-red-500">Failed to connect to server. Please check if the backend is running.</td></tr>
-                `;
-            }
+
+
+async function checkHealth() {
+    try {
+        const response = await fetch(`${BASE_URL}/transactions`, {
+            credentials: 'include'
+        });
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const health = await response.json();
+        console.log('Health check:', health);
+        if (!health.collectionExists || health.documentCount === 0) {
+            document.getElementById('transactionTable').innerHTML = `
+                <tr><td colspan="10" class="px-5 py-4 text-center text-red-500">
+                    ${health.collectionExists ? 'No transactions found in database' : 'Collection "payments" does not exist'}
+                </td></tr>
+            `;
         }
+    } catch (error) {
+        console.error('Health check failed:', error);
+        document.getElementById('transactionTable').innerHTML = `
+            <tr><td colspan="10" class="px-5 py-4 text-center text-red-500">Failed to connect to server. Please check if the backend is running.</td></tr>
+        `;
+    }
+}
 
         async function loadData() {
             document.getElementById('transactionTable').innerHTML = `

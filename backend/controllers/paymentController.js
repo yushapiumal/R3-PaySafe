@@ -1,4 +1,3 @@
-// controllers/paymentController.js
 const { getCollection } = require('../models/Payment');
 
 const healthCheck = async (req, res) => {
@@ -10,7 +9,7 @@ const healthCheck = async (req, res) => {
         res.status(200).json({
             status: 'ok',
             connected: true,
-            database: 'malky_paysafe',
+            database: 'malkey_paysafe',
             collection: 'payments',
             collectionExists,
             documentCount
@@ -27,7 +26,6 @@ const getPayments = async (req, res) => {
 
     console.log('Request query:', req.query);
 
-    // Apply date filters only if provided
     if (from || to) {
         filter.createdAt = {};
         if (from) {
