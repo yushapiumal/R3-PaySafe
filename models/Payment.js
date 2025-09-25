@@ -1,7 +1,7 @@
 // models/Payment.js
 const { getPaymentCollection } = require('../config/db');
 
-// Expected document structure for reference
+
 const paymentSchema = {
     orderId: String,
     uuid: String,

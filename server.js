@@ -11,7 +11,6 @@ const authRoutes = require("./routes/authRouters");
 const app = express();
 const port = 3008;
 
-// Load environment variables
 require("dotenv").config();
 
 // Middleware
@@ -59,7 +58,7 @@ app.use(
     saveUninitialized: false,
     store: store,
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      maxAge: 1000 * 60 * 60 * 24, 
       secure: process.env.LIVE === "true",
       sameSite: "lax",
       path: "/",
@@ -67,7 +66,6 @@ app.use(
   })
 );
 
-// Auth check middleware
 const isAuthenticated = (req, res, next) => {
   console.log("Request URL:", req.url);
   console.log("Session ID:", req.sessionID);
@@ -78,7 +76,7 @@ const isAuthenticated = (req, res, next) => {
   res.status(401).json({ message: "Unauthorized" });
 };
 
-// Root route - serve dashboard or login based on session
+
 app.get("/", (req, res) => {
   if (req.session.user) {
     res.sendFile(path.join(__dirname, "public", "dashboard.html"));
@@ -87,9 +85,8 @@ app.get("/", (req, res) => {
   }
 });
 
-// Mount routes
 app.use("/api/auth", authRoutes);
-app.use("/api", isAuthenticated, paymentRoutes); // protect payment routes
+app.use("/api", isAuthenticated, paymentRoutes); 
 
 // Start server
 async function startServer() {

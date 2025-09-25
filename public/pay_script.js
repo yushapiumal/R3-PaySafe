@@ -1,7 +1,7 @@
 // pay_script.js
 
-const BASE_URL = "http://localhost:3008/api";
-// const BASE_URL = "https://malkey.go.digitable.io:3008/api";
+//const BASE_URL = "http://localhost:3008/api";
+const BASE_URL = "https://malkey.go.digitable.io:3008/api";
 
 const today = new Date().toISOString().split('T')[0];
 
